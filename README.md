@@ -18,8 +18,12 @@ var webfaction = new Webfaction('username', 'password');
 
 webfaction.login(function(result) {
   
-  webfaction.listDomains(function(result) {
-    console.log(result);
+  webfaction.listDomains(function(err, result) {
+    if(err){
+      console.log(err);
+    }else{
+      console.log(result);
+    }
   });
 
   webfaction.createWebsite({
@@ -29,8 +33,12 @@ webfaction.login(function(result) {
     subdomains: ['www.example.com'],
     site_apps: [ ['node', '/'] ]
   },
-  function(result) {
-    console.log(result);
+  function(err,result) {
+    if(err){
+      console.log(err);
+    }else{
+      console.log(err,result);
+    }
   });
 
 });
