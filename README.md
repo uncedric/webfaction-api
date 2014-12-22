@@ -16,30 +16,34 @@ var Webfaction = require('webfaction-api');
 
 var webfaction = new Webfaction('username', 'password');
 
-webfaction.login(function(result) {
+webfaction.login(function(err,result) {
+  if(err){
+    console.log(err);
+  }else{
+    webfaction.listDomains(function(err, result) {
+      if(err){
+        console.log(err);
+      }else{
+        console.log(result);
+      }
+    });
   
-  webfaction.listDomains(function(err, result) {
-    if(err){
-      console.log(err);
-    }else{
-      console.log(result);
-    }
-  });
-
-  webfaction.createWebsite({
-    website_name : 'example',
-    ip: '123.45.67.89',
-    https: false,
-    subdomains: ['www.example.com'],
-    site_apps: [ ['node', '/'] ]
-  },
-  function(err,result) {
-    if(err){
-      console.log(err);
-    }else{
-      console.log(err,result);
-    }
-  });
+    webfaction.createWebsite({
+      website_name : 'example',
+      ip: '123.45.67.89',
+      https: false,
+      subdomains: ['www.example.com'],
+      site_apps: [ ['node', '/'] ]
+    },
+    function(err,result) {
+      if(err){
+        console.log(err);
+      }else{
+        console.log(err,result);
+      }
+    });
+  }
+  
 
 });
 ```
